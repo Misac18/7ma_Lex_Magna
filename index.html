@@ -1,500 +1,500 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cómputo de Pena</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-        .toggle-switch {
-            display: inline-block;
-            cursor: pointer;
-            width: 80px;
-            height: 40px;
-            position: relative;
-        }
-        .toggle-switch input {
-            display: none;
-        }
-        .slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #e5e7eb;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 32px;
-            width: 32px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #2563eb;
-        }
-        input:checked + .slider:before {
-            transform: translateX(40px);
-        }
-        .toggle-label {
-            position: absolute;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: .4s;
-        }
-        .toggle-label.no {
-            left: 8px;
-        }
-        .toggle-label.yes {
-            right: 8px;
-            opacity: 0;
-        }
-        input:checked ~ .toggle-label.no {
-            opacity: 0;
-        }
-        input:checked ~ .toggle-label.yes {
-            opacity: 1;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cómputo de Pena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .toggle-switch {
+            display: inline-block;
+            cursor: pointer;
+            width: 80px;
+            height: 40px;
+            position: relative;
+        }
+        .toggle-switch input {
+            display: none;
+        }
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2563eb;
+        }
+        input:checked + .slider:before {
+            transform: translateX(40px);
+        }
+        .toggle-label {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: .4s;
+        }
+        .toggle-label.no {
+            left: 8px;
+        }
+        .toggle-label.yes {
+            right: 8px;
+            opacity: 0;
+        }
+        input:checked ~ .toggle-label.no {
+            opacity: 0;
+        }
+        input:checked ~ .toggle-label.yes {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
-        <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">COMPUTO DE PENA</h1>
-        
-        <div id="calculator-form" class="space-y-6">
-            
-            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
-                <h2 class="text-xl font-bold text-blue-800 mb-4">Intervalos de Detención</h2>
-                <p class="text-sm text-gray-600 mb-4">Si el condenado tuvo múltiples detenciones antes de la condena, ingrese el número de aprehensiones aquí. Se usará para ajustar la fecha de inicio de la condena.</p>
-                
-                <label for="arrestCount" class="block text-gray-700 font-semibold mb-2">Número de aprehensiones previas:</label>
-                <input type="number" id="arrestCount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                
-                <div id="arrestIntervals" class="mt-4 space-y-4"></div>
-            </div>
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">COMPUTO DE PENA</h1>
+        
+        <div id="calculator-form" class="space-y-6">
+            
+            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                <h2 class="text-xl font-bold text-blue-800 mb-4">Intervalos de Detención</h2>
+                <p class="text-sm text-gray-600 mb-4">Si el condenado tuvo múltiples detenciones antes de la condena, ingrese el número de aprehensiones aquí. Se usará para ajustar la fecha de inicio de la condena.</p>
+                
+                <label for="arrestCount" class="block text-gray-700 font-semibold mb-2">Número de aprehensiones previas:</label>
+                <input type="number" id="arrestCount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                
+                <div id="arrestIntervals" class="mt-4 space-y-4"></div>
+            </div>
 
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Fecha de Inicio de Condena</h2>
-                <label class="block text-gray-700 font-semibold mb-2">Última fecha de detención (Día, Mes, Año):</label>
-                <div class="flex space-x-2">
-                    <input type="number" id="detentionDay" placeholder="Día" min="1" max="31" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    <input type="number" id="detentionMonth" placeholder="Mes" min="1" max="12" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    <input type="number" id="detentionYear" placeholder="Año" min="1900" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                </div>
-            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Fecha de Inicio de Condena</h2>
+                <label class="block text-gray-700 font-semibold mb-2">Última fecha de detención (Día, Mes, Año):</label>
+                <div class="flex space-x-2">
+                    <input type="number" id="detentionDay" placeholder="Día" min="1" max="31" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    <input type="number" id="detentionMonth" placeholder="Mes" min="1" max="12" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    <input type="number" id="detentionYear" placeholder="Año" min="1900" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                </div>
+            </div>
 
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Duración de la Condena</h2>
-                <label class="block text-gray-700 font-semibold mb-2">Condena (Años, Meses, Días):</label>
-                <div class="flex space-x-2">
-                    <input type="number" id="sentenceYears" placeholder="Años" value="0" min="0" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    <input type="number" id="sentenceMonths" placeholder="Meses" value="0" min="0" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    <input type="number" id="sentenceDays" placeholder="Días" value="0" min="0" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                </div>
-            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Duración de la Condena</h2>
+                <label class="block text-gray-700 font-semibold mb-2">Condena (Años, Meses, Días):</label>
+                <div class="flex space-x-2">
+                    <input type="number" id="sentenceYears" placeholder="Años" value="0" min="0" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    <input type="number" id="sentenceMonths" placeholder="Meses" value="0" min="0" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    <input type="number" id="sentenceDays" placeholder="Días" value="0" min="0" class="w-1/3 p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                </div>
+            </div>
 
-            <div id="conmutaSection" class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Conmuta</h2>
-                <p class="text-sm text-gray-600 mb-4">Solo aplica si la condena es de 5 años o menos.</p>
-                <label for="conmutaAmount" class="block text-gray-700 font-semibold mb-2">Cantidad de dinero por día para la conmuta:</label>
-                <input type="number" id="conmutaAmount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-            </div>
+            <div id="conmutaSection" class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Conmuta</h2>
+                <p class="text-sm text-gray-600 mb-4">Solo aplica si la condena es de 5 años o menos.</p>
+                <label for="conmutaAmount" class="block text-gray-700 font-semibold mb-2">Cantidad de dinero por día para la conmuta:</label>
+                <input type="number" id="conmutaAmount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+            </div>
 
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Datos de la Multa</h2>
-                <div class="flex items-center justify-between">
-                    <label class="block text-gray-700 font-semibold">¿Fue condenado a pago de multa?</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="hasFine">
-                        <div class="slider"></div>
-                        <span class="toggle-label no">NO</span>
-                        <span class="toggle-label yes">SÍ</span>
-                    </label>
-                </div>
-                
-                <div id="fineDetails" class="mt-4 space-y-4 hidden">
-                    <div>
-                        <label for="fineAmount" class="block text-gray-700 font-semibold mb-2">Cantidad de multa:</label>
-                        <input type="number" id="fineAmount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    </div>
-                    <div>
-                        <label for="quetzalesPerDay" class="block text-gray-700 font-semibold mb-2">Quetzales por día de insolvencia:</label>
-                        <input type="number" id="quetzalesPerDay" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <label class="block text-gray-700 font-semibold">¿Ya realizó un pago?</label>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="hasPaid">
-                            <div class="slider"></div>
-                            <span class="toggle-label no">NO</span>
-                            <span class="toggle-label yes">SÍ</span>
-                        </label>
-                    </div>
-                    <div id="paidAmountContainer" class="hidden">
-                        <label for="paidAmount" class="block text-gray-700 font-semibold mb-2">Cantidad que ya pagó:</label>
-                        <input type="number" id="paidAmount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-                    </div>
-                </div>
-            </div>
-            
-            <button onclick="calculateSentence()" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 w-full">
-                Calcular
-            </button>
-        </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Datos de la Multa</h2>
+                <div class="flex items-center justify-between">
+                    <label class="block text-gray-700 font-semibold">¿Fue condenado a pago de multa?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="hasFine">
+                        <div class="slider"></div>
+                        <span class="toggle-label no">NO</span>
+                        <span class="toggle-label yes">SÍ</span>
+                    </label>
+                </div>
+                
+                <div id="fineDetails" class="mt-4 space-y-4 hidden">
+                    <div>
+                        <label for="fineAmount" class="block text-gray-700 font-semibold mb-2">Cantidad de multa:</label>
+                        <input type="number" id="fineAmount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    </div>
+                    <div>
+                        <label for="quetzalesPerDay" class="block text-gray-700 font-semibold mb-2">Quetzales por día de insolvencia:</label>
+                        <input type="number" id="quetzalesPerDay" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="block text-gray-700 font-semibold">¿Ya realizó un pago?</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="hasPaid">
+                            <div class="slider"></div>
+                            <span class="toggle-label no">NO</span>
+                            <span class="toggle-label yes">SÍ</span>
+                        </label>
+                    </div>
+                    <div id="paidAmountContainer" class="hidden">
+                        <label for="paidAmount" class="block text-gray-700 font-semibold mb-2">Cantidad que ya pagó:</label>
+                        <input type="number" id="paidAmount" value="0" min="0" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="calculateSentence()" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 w-full">
+                Calcular
+            </button>
+        </div>
 
-        <div id="results" class="mt-8 bg-gray-900 p-6 rounded-xl hidden">
-            <h2 class="text-2xl font-bold text-white mb-4 text-center">Resultados</h2>
-            <pre id="resultsText" class="bg-gray-800 text-green-300 p-4 rounded-lg overflow-x-auto text-sm"></pre>
-            <div class="mt-4 flex justify-center space-x-4">
-                <button onclick="copyResults()" class="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
-                    Copiar Resultados
-                </button>
-                <button onclick="clearResults()" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 transition-colors duration-300">
-                    Eliminar Resultados
-                </button>
-            </div>
-        </div>
+        <div id="results" class="mt-8 bg-gray-900 p-6 rounded-xl hidden">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">Resultados</h2>
+            <pre id="resultsText" class="bg-gray-800 text-green-300 p-4 rounded-lg overflow-x-auto text-sm"></pre>
+            <div class="mt-4 flex justify-center space-x-4">
+                <button onclick="copyResults()" class="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
+                    Copiar Resultados
+                </button>
+                <button onclick="clearResults()" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 transition-colors duration-300">
+                    Eliminar Resultados
+                </button>
+            </div>
+        </div>
 
-        <div class="mt-8 pt-4 border-t-2 border-gray-200 text-center text-sm text-gray-500">
-            <p class="font-bold mb-2">Advertencia:</p>
-            <p>Este es un programa de apoyo para el cómputo de penas. Si encuentra algún error, por favor notifique al autor para las correcciones necesarias.</p>
-            <p class="mt-4">Esta obra, creada por el Abogado Misael Francisco Coti Hernández, está protegida por la Ley de Derechos de Autor y Derechos Conexos de Guatemala (Decreto 33-98). De conformidad con el Artículo 16 de dicha ley, el autor, en el ejercicio de su función como Secretario, la pone a disposición del Juzgado Cuarto Pluripersonal de Ejecución Penal de Escuintla por la necesidad del servicio, prohibiéndose su reproducción o uso no autorizado por terceros. &reg;</p>
-        </div>
-        
-        <div class="mt-8 pt-4 text-center text-xs italic text-gray-400">
-            <p>El ejercicio de la función pública es un encargo de confianza que exige probidad, diligencia y un servicio incondicional a la ciudadanía. La labor del servidor público debe orientarse al bienestar colectivo, no al provecho personal, construyendo con su trabajo un legado de eficiencia y transparencia.</p>
-        </div>
-    </div>
+        <div class="mt-8 pt-4 border-t-2 border-gray-200 text-center text-sm text-gray-500">
+            <p class="font-bold mb-2">Advertencia:</p>
+            <p>Este es un programa de apoyo para el cómputo de penas. Si encuentra algún error, por favor notifique al autor para las correcciones necesarias.</p>
+            <p class="mt-4">Esta obra, creada por el Abogado Misael Francisco Coti Hernández, está protegida por la Ley de Derechos de Autor y Derechos Conexos de Guatemala (Decreto 33-98). De conformidad con el Artículo 16 de dicha ley, el autor, en el ejercicio de su función como Secretario, la pone a disposición del Juzgado Cuarto Pluripersonal de Ejecución Penal de Escuintla por la necesidad del servicio, prohibiéndose su reproducción o uso no autorizado por terceros. &reg;</p>
+        </div>
+        
+        <div class="mt-8 pt-4 text-center text-xs italic text-gray-400">
+            <p>El ejercicio de la función pública es un encargo de confianza que exige probidad, diligencia y un servicio incondicional a la ciudadanía. La labor del servidor público debe orientarse al bienestar colectivo, no al provecho personal, construyendo con su trabajo un legado de eficiencia y transparencia.</p>
+        </div>
+    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('arrestCount').addEventListener('input', updateArrestIntervals);
-            document.getElementById('hasFine').addEventListener('change', updateFineDetails);
-            document.getElementById('hasPaid').addEventListener('change', updatePaidAmountVisibility);
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('arrestCount').addEventListener('input', updateArrestIntervals);
+            document.getElementById('hasFine').addEventListener('change', updateFineDetails);
+            document.getElementById('hasPaid').addEventListener('change', updatePaidAmountVisibility);
 
-            // Agregamos listeners a todos los campos de la condena para que se actualice dinámicamente
-            document.getElementById('sentenceYears').addEventListener('input', updateConmutaSection);
-            document.getElementById('sentenceMonths').addEventListener('input', updateConmutaSection);
-            document.getElementById('sentenceDays').addEventListener('input', updateConmutaSection);
+            // Agregamos listeners a todos los campos de la condena para que se actualice dinámicamente
+            document.getElementById('sentenceYears').addEventListener('input', updateConmutaSection);
+            document.getElementById('sentenceMonths').addEventListener('input', updateConmutaSection);
+            document.getElementById('sentenceDays').addEventListener('input', updateConmutaSection);
 
-            // Llama a la función una vez al cargar para establecer el estado inicial
-            updateConmutaSection();
-        });
+            // Llama a la función una vez al cargar para establecer el estado inicial
+            updateConmutaSection();
+        });
 
-        function updateArrestIntervals(event) {
-            const count = parseInt(event.target.value) || 0;
-            const container = document.getElementById('arrestIntervals');
-            container.innerHTML = '';
-            for (let i = 0; i < count; i++) {
-                container.innerHTML += `
-                    <div class="bg-white p-4 rounded-lg border-2 border-dashed border-blue-300">
-                        <h3 class="font-bold text-gray-700 mb-2">Aprehensión #${i + 1}</h3>
-                        <label class="block text-gray-600 text-sm mb-1">Fecha de detención (Día, Mes, Año):</label>
-                        <div class="flex space-x-2 mb-2">
-                            <input type="number" placeholder="Día" class="arrest-start-day w-1/3 p-2 border border-gray-300 rounded-lg">
-                            <input type="number" placeholder="Mes" class="arrest-start-month w-1/3 p-2 border border-gray-300 rounded-lg">
-                            <input type="number" placeholder="Año" class="arrest-start-year w-1/3 p-2 border border-gray-300 rounded-lg">
-                        </div>
-                        <label class="block text-gray-600 text-sm mb-1">Fecha de libertad (Día, Mes, Año):</label>
-                        <div class="flex space-x-2">
-                            <input type="number" placeholder="Día" class="arrest-end-day w-1/3 p-2 border border-gray-300 rounded-lg">
-                            <input type="number" placeholder="Mes" class="arrest-end-month w-1/3 p-2 border border-gray-300 rounded-lg">
-                            <input type="number" placeholder="Año" class="arrest-end-year w-1/3 p-2 border border-gray-300 rounded-lg">
-                        </div>
-                    </div>
-                `;
-            }
-        }
+        function updateArrestIntervals(event) {
+            const count = parseInt(event.target.value) || 0;
+            const container = document.getElementById('arrestIntervals');
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                container.innerHTML += `
+                    <div class="bg-white p-4 rounded-lg border-2 border-dashed border-blue-300">
+                        <h3 class="font-bold text-gray-700 mb-2">Aprehensión #${i + 1}</h3>
+                        <label class="block text-gray-600 text-sm mb-1">Fecha de detención (Día, Mes, Año):</label>
+                        <div class="flex space-x-2 mb-2">
+                            <input type="number" placeholder="Día" class="arrest-start-day w-1/3 p-2 border border-gray-300 rounded-lg">
+                            <input type="number" placeholder="Mes" class="arrest-start-month w-1/3 p-2 border border-gray-300 rounded-lg">
+                            <input type="number" placeholder="Año" class="arrest-start-year w-1/3 p-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <label class="block text-gray-600 text-sm mb-1">Fecha de libertad (Día, Mes, Año):</label>
+                        <div class="flex space-x-2">
+                            <input type="number" placeholder="Día" class="arrest-end-day w-1/3 p-2 border border-gray-300 rounded-lg">
+                            <input type="number" placeholder="Mes" class="arrest-end-month w-1/3 p-2 border border-gray-300 rounded-lg">
+                            <input type="number" placeholder="Año" class="arrest-end-year w-1/3 p-2 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                `;
+            }
+        }
 
-        function updateFineDetails() {
-            const hasFine = document.getElementById('hasFine').checked;
-            document.getElementById('fineDetails').classList.toggle('hidden', !hasFine);
-        }
+        function updateFineDetails() {
+            const hasFine = document.getElementById('hasFine').checked;
+            document.getElementById('fineDetails').classList.toggle('hidden', !hasFine);
+        }
 
-        function updatePaidAmountVisibility() {
-            const hasPaid = document.getElementById('hasPaid').checked;
-            document.getElementById('paidAmountContainer').classList.toggle('hidden', !hasPaid);
-        }
+        function updatePaidAmountVisibility() {
+            const hasPaid = document.getElementById('hasPaid').checked;
+            document.getElementById('paidAmountContainer').classList.toggle('hidden', !hasPaid);
+        }
 
-        function updateConmutaSection() {
-            const sentenceYears = parseInt(document.getElementById('sentenceYears').value) || 0;
-            const sentenceMonths = parseInt(document.getElementById('sentenceMonths').value) || 0;
-            const sentenceDays = parseInt(document.getElementById('sentenceDays').value) || 0;
-            
-            // La condición se cumple si los años son estrictamente mayores a 5
-            // o si son 5 años pero hay meses o días adicionales.
-            const isMoreThanFiveYears = (sentenceYears > 5) || (sentenceYears === 5 && (sentenceMonths > 0 || sentenceDays > 0));
-            document.getElementById('conmutaSection').classList.toggle('hidden', isMoreThanFiveYears);
-        }
+        function updateConmutaSection() {
+            const sentenceYears = parseInt(document.getElementById('sentenceYears').value) || 0;
+            const sentenceMonths = parseInt(document.getElementById('sentenceMonths').value) || 0;
+            const sentenceDays = parseInt(document.getElementById('sentenceDays').value) || 0;
+            
+            // La condición se cumple si los años son estrictamente mayores a 5
+            // o si son 5 años pero hay meses o días adicionales.
+            const isMoreThanFiveYears = (sentenceYears > 5) || (sentenceYears === 5 && (sentenceMonths > 0 || sentenceDays > 0));
+            document.getElementById('conmutaSection').classList.toggle('hidden', isMoreThanFiveYears);
+        }
 
-        function normalizeDate(day, month, year, daysToAdd) {
-            let newDay = day + daysToAdd;
-            let newMonth = month;
-            let newYear = year;
+        function normalizeDate(day, month, year, daysToAdd) {
+            let newDay = day + daysToAdd;
+            let newMonth = month;
+            let newYear = year;
 
-            let monthsToAdd = Math.trunc((newDay - 1) / 30);
-            newMonth += monthsToAdd;
-            newDay = ((newDay - 1) % 30) + 1;
+            let monthsToAdd = Math.trunc((newDay - 1) / 30);
+            newMonth += monthsToAdd;
+            newDay = ((newDay - 1) % 30) + 1;
 
-            let yearsToAdd = Math.trunc((newMonth - 1) / 12);
-            newYear += yearsToAdd;
-            newMonth = ((newMonth - 1) % 12) + 1;
-            
-            return { day: newDay, month: newMonth, year: newYear };
-        }
-        
-        function calculateSentence() {
-            // --- Variables de control para el nuevo ciclo de aprehensiones ---
-            const numero_aprehensiones = parseInt(document.getElementById("arrestCount").value) || 0;
-            let dias_detenidos_acumulados = 0;
+            let yearsToAdd = Math.trunc((newMonth - 1) / 12);
+            newYear += yearsToAdd;
+            newMonth = ((newMonth - 1) % 12) + 1;
+            
+            return { day: newDay, month: newMonth, year: newYear };
+        }
+        
+        function calculateSentence() {
+            // --- Variables de control para el nuevo ciclo de aprehensiones ---
+            const numero_aprehensiones = parseInt(document.getElementById("arrestCount").value) || 0;
+            let dias_detenidos_acumulados = 0;
 
-            if (numero_aprehensiones > 0) {
-                const arrestIntervals = document.getElementById('arrestIntervals').children;
-                for (let i = 0; i < arrestIntervals.length; i++) {
-                    const dia_detencion_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-start-day').value) || 0;
-                    const mes_detencion_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-start-month').value) || 0;
-                    const anio_detencion_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-start-year').value) || 0;
-                    const dia_libertad_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-end-day').value) || 0;
-                    const mes_libertad_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-end-month').value) || 0;
-                    const anio_libertad_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-end-year').value) || 0;
+            if (numero_aprehensiones > 0) {
+                const arrestIntervals = document.getElementById('arrestIntervals').children;
+                for (let i = 0; i < arrestIntervals.length; i++) {
+                    const dia_detencion_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-start-day').value) || 0;
+                    const mes_detencion_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-start-month').value) || 0;
+                    const anio_detencion_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-start-year').value) || 0;
+                    const dia_libertad_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-end-day').value) || 0;
+                    const mes_libertad_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-end-month').value) || 0;
+                    const anio_libertad_intervalo = parseInt(arrestIntervals[i].querySelector('.arrest-end-year').value) || 0;
 
-                    const dias_en_intervalo = ((anio_libertad_intervalo - anio_detencion_intervalo) * 360) + ((mes_libertad_intervalo - mes_detencion_intervalo) * 30) + (dia_libertad_intervalo - dia_detencion_intervalo);
-                    dias_detenidos_acumulados += dias_en_intervalo;
-                }
-            }
+                    const dias_en_intervalo = ((anio_libertad_intervalo - anio_detencion_intervalo) * 360) + ((mes_libertad_intervalo - mes_detencion_intervalo) * 30) + (dia_libertad_intervalo - dia_detencion_intervalo);
+                    dias_detenidos_acumulados += dias_en_intervalo;
+                }
+            }
 
-            // Definición de variables para la fecha de detención
-            let dia_detencion = parseInt(document.getElementById("detentionDay").value) || 0;
-            let mes_detencion = parseInt(document.getElementById("detentionMonth").value) || 0;
-            let anio_detencion = parseInt(document.getElementById("detentionYear").value) || 0;
+            // Definición de variables para la fecha de detención
+            let dia_detencion = parseInt(document.getElementById("detentionDay").value) || 0;
+            let mes_detencion = parseInt(document.getElementById("detentionMonth").value) || 0;
+            let anio_detencion = parseInt(document.getElementById("detentionYear").value) || 0;
 
-            // Ajustamos la última fecha de detención restando los días ya cumplidos
-            if (numero_aprehensiones > 0) {
-                dia_detencion -= dias_detenidos_acumulados;
-                
-                // Normalizamos la fecha resultante (lógica del pseudocódigo)
-                while (dia_detencion <= 0) {
-                    mes_detencion--;
-                    dia_detencion += 30;
-                }
-                while (mes_detencion <= 0) {
-                    anio_detencion--;
-                    mes_detencion += 12;
-                }
-            }
-            
-            // Definición de variables para la condena
-            const anios_condena = parseInt(document.getElementById("sentenceYears").value) || 0;
-            const meses_condena = parseInt(document.getElementById("sentenceMonths").value) || 0;
-            const dias_condena = parseInt(document.getElementById("sentenceDays").value) || 0;
+            // Ajustamos la última fecha de detención restando los días ya cumplidos
+            if (numero_aprehensiones > 0) {
+                dia_detencion -= dias_detenidos_acumulados;
+                
+                // Normalizamos la fecha resultante (lógica del pseudocódigo)
+                while (dia_detencion <= 0) {
+                    mes_detencion--;
+                    dia_detencion += 30;
+                }
+                while (mes_detencion <= 0) {
+                    anio_detencion--;
+                    mes_detencion += 12;
+                }
+            }
+            
+            // Definición de variables para la condena
+            const anios_condena = parseInt(document.getElementById("sentenceYears").value) || 0;
+            const meses_condena = parseInt(document.getElementById("sentenceMonths").value) || 0;
+            const dias_condena = parseInt(document.getElementById("sentenceDays").value) || 0;
 
-            // Variables para el cálculo de los días base de la condena
-            const dias_totales_condena_base = (anios_condena * 360) + (meses_condena * 30) + dias_condena;
-            
-            // --- Lógica del cálculo de la multa ---
-            const pago_multa = document.getElementById("hasFine").checked;
-            let dias_por_multa_total = 0;
-            let anios_multa = 0;
-            let meses_multa = 0;
-            let dias_multa = 0;
-            let anios_multa_mitad = 0;
-            let meses_multa_mitad = 0;
-            let dias_multa_mitad = 0;
+            // Variables para el cálculo de los días base de la condena
+            const dias_totales_condena_base = (anios_condena * 360) + (meses_condena * 30) + dias_condena;
+            
+            // --- Lógica del cálculo de la multa ---
+            const pago_multa = document.getElementById("hasFine").checked;
+            let dias_por_multa_total = 0;
+            let anios_multa = 0;
+            let meses_multa = 0;
+            let dias_multa = 0;
+            let anios_multa_mitad = 0;
+            let meses_multa_mitad = 0;
+            let dias_multa_mitad = 0;
 
-            if (pago_multa) {
-                const cantidad_multa = parseInt(document.getElementById("fineAmount").value) || 0;
-                const quetzales_por_dia = parseInt(document.getElementById("quetzalesPerDay").value) || 0;
-                const pago_realizado = document.getElementById("hasPaid").checked;
-                const cantidad_pagada = parseInt(document.getElementById("paidAmount").value) || 0;
+            if (pago_multa) {
+                const cantidad_multa = parseInt(document.getElementById("fineAmount").value) || 0;
+                const quetzales_por_dia = parseInt(document.getElementById("quetzalesPerDay").value) || 0;
+                const pago_realizado = document.getElementById("hasPaid").checked;
+                const cantidad_pagada = parseInt(document.getElementById("paidAmount").value) || 0;
 
-                if (quetzales_por_dia > 0) {
-                    if (pago_realizado) {
-                        dias_por_multa_total = Math.trunc((cantidad_multa - cantidad_pagada) / quetzales_por_dia);
-                    } else {
-                        dias_por_multa_total = Math.trunc(cantidad_multa / quetzales_por_dia);
-                    }
-                }
-                
-                anios_multa = Math.trunc(dias_por_multa_total / 360);
-                meses_multa = Math.trunc((dias_por_multa_total % 360) / 30);
-                dias_multa = (dias_por_multa_total % 360) % 30;
-                
-                const dias_por_multa_mitad = Math.trunc(dias_por_multa_total / 2);
-                anios_multa_mitad = Math.trunc(dias_por_multa_mitad / 360);
-                meses_multa_mitad = Math.trunc((dias_por_multa_mitad % 360) / 30);
-                dias_multa_mitad = (dias_por_multa_mitad % 360) % 30;
-            }
+                if (quetzales_por_dia > 0) {
+                    if (pago_realizado) {
+                        dias_por_multa_total = Math.trunc((cantidad_multa - cantidad_pagada) / quetzales_por_dia);
+                    } else {
+                        dias_por_multa_total = Math.trunc(cantidad_multa / quetzales_por_dia);
+                    }
+                }
+                
+                anios_multa = Math.trunc(dias_por_multa_total / 360);
+                meses_multa = Math.trunc((dias_por_multa_total % 360) / 30);
+                dias_multa = (dias_por_multa_total % 360) % 30;
+                
+                const dias_por_multa_mitad = Math.trunc(dias_por_multa_total / 2);
+                anios_multa_mitad = Math.trunc(dias_por_multa_mitad / 360);
+                meses_multa_mitad = Math.trunc((dias_por_multa_mitad % 360) / 30);
+                dias_multa_mitad = (dias_por_multa_mitad % 360) % 30;
+            }
 
-            // --- Lógica del cálculo de la conmuta ---
-            let dias_restantes_condena = 0;
-            let monto_total_conmuta = 0;
-            let CANTIDAD_EN_DINERO = 0;
+            // --- Lógica del cálculo de la conmuta ---
+            let dias_restantes_condena = 0;
+            let monto_total_conmuta = 0;
+            let CANTIDAD_EN_DINERO = 0;
 
-            if (anios_condena <= 5) {
-                CANTIDAD_EN_DINERO = parseInt(document.getElementById("conmutaAmount").value) || 0;
-                dias_restantes_condena = dias_totales_condena_base - dias_detenidos_acumulados;
-                monto_total_conmuta = CANTIDAD_EN_DINERO * dias_restantes_condena;
-            }
-            
-            // --- CALCULO PARA LA FECHA DE SALIDA TOTAL CORPORAL ---
-            const dias_condena_corporal = dias_totales_condena_base - 1;
-            const salidaCorporal = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_corporal);
+            if (anios_condena <= 5) {
+                CANTIDAD_EN_DINERO = parseInt(document.getElementById("conmutaAmount").value) || 0;
+                dias_restantes_condena = dias_totales_condena_base - dias_detenidos_acumulados;
+                monto_total_conmuta = CANTIDAD_EN_DINERO * dias_restantes_condena;
+            }
+            
+            // --- CALCULO PARA LA FECHA DE SALIDA TOTAL CORPORAL ---
+            const dias_condena_corporal = dias_totales_condena_base - 1;
+            const salidaCorporal = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_corporal);
 
-            // --- CALCULO PARA LIBERTAD ANTICIPADA POR BUENA CONDUCTA ---
-            const dias_condena_anticipada = Math.trunc(dias_totales_condena_base * 0.75) - 1;
-            const salidaAnticipada = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_anticipada);
-            
-            // --- CALCULO PARA LIBERTAD CONDICIONAL ---
-            let dias_condena_condicional_ajustada;
-            if (anios_condena >= 3 && anios_condena <= 12) {
-                dias_condena_condicional_ajustada = Math.trunc(dias_totales_condena_base / 2) + 1;
-            } else if (anios_condena > 12) {
-                dias_condena_condicional_ajustada = Math.trunc(dias_totales_condena_base * 0.75) + 1;
-            } else {
-                dias_condena_condicional_ajustada = dias_condena_corporal;
-            }
-            const salidaCondicional = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_condicional_ajustada);
+            // --- CALCULO PARA LIBERTAD ANTICIPADA POR BUENA CONDUCTA ---
+            const dias_condena_anticipada = Math.trunc(dias_totales_condena_base * 0.75) - 1;
+            const salidaAnticipada = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_anticipada);
+            
+            // --- CALCULO PARA LIBERTAD CONDICIONAL ---
+            let dias_condena_condicional_ajustada;
+            if (anios_condena >= 3 && anios_condena <= 12) {
+                dias_condena_condicional_ajustada = Math.trunc(dias_totales_condena_base / 2) + 1;
+            } else if (anios_condena > 12) {
+                dias_condena_condicional_ajustada = Math.trunc(dias_totales_condena_base * 0.75) + 1;
+            } else {
+                dias_condena_condicional_ajustada = dias_condena_corporal;
+            }
+            const salidaCondicional = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_condicional_ajustada);
 
-            // --- CALCULO PARA REDENCION DE PENAS ---
-            const dias_condena_redencion_real = dias_condena_corporal / 2;
-            const dias_condena_redencion_ajustada = Math.trunc(dias_condena_redencion_real);
-            const dias_condena_redencion_final = dias_condena_corporal - dias_condena_redencion_ajustada;
-            const salidaRedencion = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_redencion_final);
+            // --- CALCULO PARA REDENCION DE PENAS ---
+            const dias_condena_redencion_real = dias_condena_corporal / 2;
+            const dias_condena_redencion_ajustada = Math.trunc(dias_condena_redencion_real);
+            const dias_condena_redencion_final = dias_condena_corporal - dias_condena_redencion_ajustada;
+            const salidaRedencion = normalizeDate(dia_detencion, mes_detencion, anio_detencion, dias_condena_redencion_final);
 
-            // --- CALCULO PARA INSOLVENCIA (sumando el tiempo de la multa) ---
-            let salidaInsolvenciaCorporal, salidaInsolvenciaConducta, salidaInsolvenciaCondicional, salidaInsolvenciaRedencion;
+            // --- CALCULO PARA INSOLVENCIA (sumando el tiempo de la multa) ---
+            let salidaInsolvenciaCorporal, salidaInsolvenciaConducta, salidaInsolvenciaCondicional, salidaInsolvenciaRedencion;
 
-            if (pago_multa) {
-                salidaInsolvenciaCorporal = normalizeDate(salidaCorporal.day, salidaCorporal.month, salidaCorporal.year, dias_multa + (meses_multa * 30) + (anios_multa * 360));
-                salidaInsolvenciaConducta = normalizeDate(salidaAnticipada.day, salidaAnticipada.month, salidaAnticipada.year, dias_multa + (meses_multa * 30) + (anios_multa * 360));
-                salidaInsolvenciaCondicional = normalizeDate(salidaCondicional.day, salidaCondicional.month, salidaCondicional.year, dias_multa + (meses_multa * 30) + (anios_multa * 360));
-                salidaInsolvenciaRedencion = normalizeDate(salidaRedencion.day, salidaRedencion.month, salidaRedencion.year, dias_multa_mitad + (meses_multa_mitad * 30) + (anios_multa_mitad * 360));
-            }
+            if (pago_multa) {
+                salidaInsolvenciaCorporal = normalizeDate(salidaCorporal.day, salidaCorporal.month, salidaCorporal.year, dias_multa + (meses_multa * 30) + (anios_multa * 360));
+                salidaInsolvenciaConducta = normalizeDate(salidaAnticipada.day, salidaAnticipada.month, salidaAnticipada.year, dias_multa + (meses_multa * 30) + (anios_multa * 360));
+                salidaInsolvenciaCondicional = normalizeDate(salidaCondicional.day, salidaCondicional.month, salidaCondicional.year, dias_multa + (meses_multa * 30) + (anios_multa * 360));
+                salidaInsolvenciaRedencion = normalizeDate(salidaRedencion.day, salidaRedencion.month, salidaRedencion.year, dias_multa_mitad + (meses_multa_mitad * 30) + (anios_multa_mitad * 360));
+            }
 
-            // --- Mostrar el resultado ---
-            let resultsOutput = `
+            // --- Mostrar el resultado ---
+            let resultsOutput = `
 ----------------------------------------------------
 Fecha de detención: ${dia_detencion}/${mes_detencion}/${anio_detencion}
 ----------------------------------------------------
 ----------------------------------------------------
-| Tipo de Salida          | Fecha de Salida         |
+| Tipo de Salida          | Fecha de Salida         |
 ----------------------------------------------------
-| TOTAL CORPORAL          | ${salidaCorporal.day}/${salidaCorporal.month}/${salidaCorporal.year}          |
-| BUENA CONDUCTA          | ${salidaAnticipada.day}/${salidaAnticipada.month}/${salidaAnticipada.year}          |
-| LIBERTAD CONDICIONAL    | ${salidaCondicional.day}/${salidaCondicional.month}/${salidaCondicional.year}          |
-| REDENCIÓN DE PENAS      | ${salidaRedencion.day}/${salidaRedencion.month}/${salidaRedencion.year}          |
+| TOTAL CORPORAL          | ${salidaCorporal.day}/${salidaCorporal.month}/${salidaCorporal.year}          |
+| BUENA CONDUCTA          | ${salidaAnticipada.day}/${salidaAnticipada.month}/${salidaAnticipada.year}          |
+| LIBERTAD CONDICIONAL    | ${salidaCondicional.day}/${salidaCondicional.month}/${salidaCondicional.year}          |
+| REDENCIÓN DE PENAS      | ${salidaRedencion.day}/${salidaRedencion.month}/${salidaRedencion.year}          |
 ----------------------------------------------------
-            `;
-            
-            if (pago_multa) {
-                resultsOutput += `
+            `;
+            
+            if (pago_multa) {
+                resultsOutput += `
 TIEMPO POR MULTA: ${anios_multa} Años, ${meses_multa} Meses, ${dias_multa} Días
 MITAD DEL TIEMPO POR MULTA: ${anios_multa_mitad} Años, ${meses_multa_mitad} Meses, ${dias_multa_mitad} Días
 ----------------------------------------------------
-                `;
-            } else {
-                resultsOutput += `
+                `;
+            } else {
+                resultsOutput += `
 MULTA: No aplica
 ----------------------------------------------------
-                `;
-            }
+                `;
+            }
 
-            if (anios_condena <= 5) {
-                resultsOutput += `
+            if (anios_condena <= 5) {
+                resultsOutput += `
 MONTO DE LA CONMUTA: ${CANTIDAD_EN_DINERO} Quetzales
 DÍAS RESTANTES DE CONDENA: ${dias_restantes_condena} Días
 CONMUTA POR DIAS RESTANTES (CANTIDAD * DIAS): ${monto_total_conmuta.toFixed(2)}
 ----------------------------------------------------
-                `;
-            } else {
-                resultsOutput += `
+                `;
+            } else {
+                resultsOutput += `
 MONTO DE LA CONMUTA: No aplica
 ----------------------------------------------------
-                `;
-            }
-            
-            if (pago_multa) {
-                resultsOutput += `
+                `;
+            }
+            
+            if (pago_multa) {
+                resultsOutput += `
 ----------------------------------------------------
-    DATOS CON INSOLVENCIA      
+    DATOS CON INSOLVENCIA      
 ----------------------------------------------------
-| Tipo de Salida          | Fecha de Salida         |
+| Tipo de Salida          | Fecha de Salida         |
 ----------------------------------------------------
-| TOTAL CORPORAL          | ${salidaInsolvenciaCorporal.day}/${salidaInsolvenciaCorporal.month}/${salidaInsolvenciaCorporal.year}          |
-| BUENA CONDUCTA          | ${salidaInsolvenciaConducta.day}/${salidaInsolvenciaConducta.month}/${salidaInsolvenciaConducta.year}          |
-| LIBERTAD CONDICIONAL    | ${salidaInsolvenciaCondicional.day}/${salidaInsolvenciaCondicional.month}/${salidaInsolvenciaCondicional.year}          |
-| REDENCIÓN DE PENAS      | ${salidaInsolvenciaRedencion.day}/${salidaInsolvenciaRedencion.month}/${salidaInsolvenciaRedencion.year}          |
+| TOTAL CORPORAL          | ${salidaInsolvenciaCorporal.day}/${salidaInsolvenciaCorporal.month}/${salidaInsolvenciaCorporal.year}          |
+| BUENA CONDUCTA          | ${salidaInsolvenciaConducta.day}/${salidaInsolvenciaConducta.month}/${salidaInsolvenciaConducta.year}          |
+| LIBERTAD CONDICIONAL    | ${salidaInsolvenciaCondicional.day}/${salidaInsolvenciaCondicional.month}/${salidaInsolvenciaCondicional.year}          |
+| REDENCIÓN DE PENAS      | ${salidaInsolvenciaRedencion.day}/${salidaInsolvenciaRedencion.month}/${salidaInsolvenciaRedencion.year}          |
 ----------------------------------------------------
-                `;
-            }
+                `;
+            }
 
-            // Mostrar el contenedor de resultados
-            document.getElementById("resultsText").textContent = resultsOutput;
-            document.getElementById("results").classList.remove("hidden");
-        }
-        
-        // --- Nuevas funciones para Copiar y Eliminar Resultados ---
-        function copyResults() {
-            const resultsText = document.getElementById("resultsText");
-            navigator.clipboard.writeText(resultsText.textContent)
-                .then(() => {
-                    alert('Resultados copiados al portapapeles.');
-                })
-                .catch(err => {
-                    console.error('Error al copiar: ', err);
-                    alert('No se pudo copiar el texto. Inténtelo manualmente.');
-                });
-        }
+            // Mostrar el contenedor de resultados
+            document.getElementById("resultsText").textContent = resultsOutput;
+            document.getElementById("results").classList.remove("hidden");
+        }
+        
+        // --- Nuevas funciones para Copiar y Eliminar Resultados ---
+        function copyResults() {
+            const resultsText = document.getElementById("resultsText");
+            navigator.clipboard.writeText(resultsText.textContent)
+                .then(() => {
+                    alert('Resultados copiados al portapapeles.');
+                })
+                .catch(err => {
+                    console.error('Error al copiar: ', err);
+                    alert('No se pudo copiar el texto. Inténtelo manualmente.');
+                });
+        }
 
-        // --- FUNCIÓN 'clearResults' MODIFICADA ---
-        function clearResults() {
-            // Oculta el contenedor de resultados y borra el texto
-            const resultsContainer = document.getElementById("results");
-            const resultsText = document.getElementById("resultsText");
-            resultsText.textContent = '';
-            resultsContainer.classList.add('hidden');
+        // --- FUNCIÓN 'clearResults' MODIFICADA ---
+        function clearResults() {
+            // Oculta el contenedor de resultados y borra el texto
+            const resultsContainer = document.getElementById("results");
+            const resultsText = document.getElementById("resultsText");
+            resultsText.textContent = '';
+            resultsContainer.classList.add('hidden');
 
-            // Restablece todos los campos del formulario
-            document.getElementById("arrestCount").value = 0;
-            document.getElementById("arrestIntervals").innerHTML = ''; // Limpia los intervalos dinámicos
+            // Restablece todos los campos del formulario
+            document.getElementById("arrestCount").value = 0;
+            document.getElementById("arrestIntervals").innerHTML = ''; // Limpia los intervalos dinámicos
 
-            document.getElementById("detentionDay").value = '';
-            document.getElementById("detentionMonth").value = '';
-            document.getElementById("detentionYear").value = '';
+            document.getElementById("detentionDay").value = '';
+            document.getElementById("detentionMonth").value = '';
+            document.getElementById("detentionYear").value = '';
 
-            document.getElementById("sentenceYears").value = 0;
-            document.getElementById("sentenceMonths").value = 0;
-            document.getElementById("sentenceDays").value = 0;
-            
-            document.getElementById("conmutaAmount").value = 0;
+            document.getElementById("sentenceYears").value = 0;
+            document.getElementById("sentenceMonths").value = 0;
+            document.getElementById("sentenceDays").value = 0;
+            
+            document.getElementById("conmutaAmount").value = 0;
 
-            document.getElementById("hasFine").checked = false;
-            document.getElementById("fineAmount").value = 0;
-            document.getElementById("quetzalesPerDay").value = 0;
-            document.getElementById("hasPaid").checked = false;
-            document.getElementById("paidAmount").value = 0;
+            document.getElementById("hasFine").checked = false;
+            document.getElementById("fineAmount").value = 0;
+            document.getElementById("quetzalesPerDay").value = 0;
+            document.getElementById("hasPaid").checked = false;
+            document.getElementById("paidAmount").value = 0;
 
-            // Restablece la visibilidad de las secciones
-            updateArrestIntervals({ target: document.getElementById("arrestCount") }); // Limpia y oculta los intervalos de detención si había alguno
-            updateFineDetails();
-            updatePaidAmountVisibility();
-            updateConmutaSection();
-        }
-    </script>
+            // Restablece la visibilidad de las secciones
+            updateArrestIntervals({ target: document.getElementById("arrestCount") }); // Limpia y oculta los intervalos de detención si había alguno
+            updateFineDetails();
+            updatePaidAmountVisibility();
+            updateConmutaSection();
+        }
+    </script>
 </body>
 </html>
